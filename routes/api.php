@@ -25,3 +25,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('/categories', \App\Http\Controllers\API\CategoryController::class);
 
 /*=====  End of categories   ======*/
+
+/*===========================
+=           posts           =
+=============================*/
+
+Route::apiResource('/posts', \App\Http\Controllers\API\PostController::class);
+
+/*=====  End of posts   ======*/
