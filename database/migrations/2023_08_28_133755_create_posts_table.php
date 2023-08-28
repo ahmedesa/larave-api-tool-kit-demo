@@ -19,8 +19,8 @@ return new class extends Migration
 			$table->foreignId('category_id')->constrained('categories');
 			$table->string('title');
 			$table->text('content');
-			$table->enum('status', ['Draft', 'Published']);
-            
+			$table->enum('status', \App\Enums\PostStatus::getAll());
+
             $table->timestamps();
         });
     }

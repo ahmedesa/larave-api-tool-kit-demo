@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Post;
 
+use App\Enums\PostStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePostRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class UpdatePostRequest extends FormRequest
 			'category_id' => ['sometimes'],
 			'title' => ['sometimes', 'string'],
 			'content' => ['sometimes', 'string'],
-			'status' => ['sometimes', 'in:Draft,Published'],
+            'status' => ['sometimes', Rule::in(PostStatus::getAll())],
         ];
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Post;
 
+use App\Enums\PostStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreatePostRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class CreatePostRequest extends FormRequest
 			'category_id' => ['required'],
 			'title' => ['required', 'string'],
 			'content' => ['required', 'string'],
-			'status' => ['required', 'in:Draft,Published'],
+			'status' => ['required', Rule::in(PostStatus::getAll())],
         ];
     }
 }

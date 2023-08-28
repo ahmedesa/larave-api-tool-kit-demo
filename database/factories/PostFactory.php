@@ -13,7 +13,7 @@ class PostFactory extends Factory
 			'category_id' => createOrRandomFactory(\App\Models\Category::class),
 			'title' => $this->faker->firstName(),
 			'content' => $this->faker->text(),
-			'status' => $this->faker->randomElement(['Draft', 'Published']),
+			'status' => $this->faker->randomElement(\App\Enums\PostStatus::getAll()),
         ];
     }
 }
