@@ -2,10 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class PostTest extends TestCase
 {
@@ -21,23 +22,19 @@ class PostTest extends TestCase
 
     public function testCreatePost(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         $payload = Post::factory()->make([])->toArray();
 
         $this->json('POST', $this->endpoint, $payload)
-             ->assertStatus(201)
-             ->assertSee($payload['name']);
+            ->assertStatus(201)
+            ->assertSee($payload['title']);
 
         $this->assertDatabaseHas($this->tableName, ['id' => 1]);
     }
 
     public function testViewAllPostsSuccessfully(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         Post::factory(5)->create();
@@ -45,27 +42,29 @@ class PostTest extends TestCase
         $this->json('GET', $this->endpoint)
              ->assertStatus(200)
              ->assertJsonCount(5, 'data')
-             ->assertSee(Post::first(rand(1, 5))->name);
+             ->assertSee(Post::first(rand(1, 5))->title);
     }
 
     public function testViewAllPostsByFooFilter(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
-        Post::factory(5)->create();
+        Post::factory(5)->create([
+            'category_id' => $category1 = Category::factory()->create()
+        ]);
 
-        $this->json('GET', $this->endpoint.'?foo=1')
-             ->assertStatus(200)
-             ->assertSee('foo')
-             ->assertDontSee('foo');
+        Post::factory(7)->create([
+            'category_id' => $category2 = Category::factory()->create()
+        ]);
+
+        $this->json('GET', $this->endpoint . '?category_id=' . $category2->id)
+            ->assertStatus(200)
+            ->assertJsonCount(7, 'data');
+
     }
 
     public function testsCreatePostValidation(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         $data = [
@@ -77,8 +76,6 @@ class PostTest extends TestCase
 
     public function testViewPostData(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         Post::factory()->create();
@@ -90,25 +87,21 @@ class PostTest extends TestCase
 
     public function testUpdatePost(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         Post::factory()->create();
 
         $payload = [
-            'name' => 'Random'
+            'title' => 'Random'
         ];
 
         $this->json('PUT', $this->endpoint.'/1', $payload)
              ->assertStatus(200)
-             ->assertSee($payload['name']);
+             ->assertSee($payload['title']);
     }
 
     public function testDeletePost(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         Post::factory()->create();
@@ -118,5 +111,5 @@ class PostTest extends TestCase
 
         $this->assertEquals(0, Post::count());
     }
-    
+
 }
