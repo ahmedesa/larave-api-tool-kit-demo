@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Category;
@@ -17,15 +19,16 @@ class CategoryTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        Storage::fake('public');
     }
 
     public function testCreateCategory(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         $payload = Category::factory()->make([])->toArray();
+        $payload['image'] = UploadedFile::fake()->image('image.jpg');
 
         $this->json('POST', $this->endpoint, $payload)
              ->assertStatus(201)
@@ -36,8 +39,6 @@ class CategoryTest extends TestCase
 
     public function testViewAllCategoriesSuccessfully(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         Category::factory(5)->create();
@@ -48,24 +49,27 @@ class CategoryTest extends TestCase
              ->assertSee(Category::first(rand(1, 5))->name);
     }
 
-    public function testViewAllCategoriesByFooFilter(): void
+    public function testViewAllCategoriesByNameSearch(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
-        Category::factory(5)->create();
+        Category::factory(1)->create([
+            'name' => 'aa'
+        ]);
 
-        $this->json('GET', $this->endpoint.'?foo=1')
+        Category::factory(1)->create([
+            'name' => 'bb'
+        ]);
+
+        $this->json('GET', $this->endpoint.'?search=aa')
              ->assertStatus(200)
-             ->assertSee('foo')
-             ->assertDontSee('foo');
+            ->assertJsonCount(1, 'data')
+            ->assertSee('aa')
+            ->assertDontSee('bb');
     }
 
     public function testsCreateCategoryValidation(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         $data = [
@@ -77,8 +81,6 @@ class CategoryTest extends TestCase
 
     public function testViewCategoryData(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         Category::factory()->create();
@@ -90,8 +92,6 @@ class CategoryTest extends TestCase
 
     public function testUpdateCategory(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         Category::factory()->create();
@@ -107,8 +107,6 @@ class CategoryTest extends TestCase
 
     public function testDeleteCategory(): void
     {
-        $this->markTestIncomplete('This test case needs review.');
-
         $this->actingAs(User::factory()->create());
 
         Category::factory()->create();
@@ -118,5 +116,5 @@ class CategoryTest extends TestCase
 
         $this->assertEquals(0, Category::count());
     }
-    
+
 }
