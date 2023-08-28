@@ -10,7 +10,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'string'],
-			'image' => ['sometimes', 'image', 'string'],
+            'image' => ['nullable', 'image'],
         ];
     }
 }
