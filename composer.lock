@@ -434,16 +434,16 @@
         },
         {
             "name": "essa/api-tool-kit",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ahmedesa/laravel-api-tool-kit.git",
-                "reference": "ebb3bd2cc0642bc9e1a508b1c10916d77f8a2606"
+                "reference": "87b58f131d24417e35b14a6a3fd33ad131c81b8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ahmedesa/laravel-api-tool-kit/zipball/ebb3bd2cc0642bc9e1a508b1c10916d77f8a2606",
-                "reference": "ebb3bd2cc0642bc9e1a508b1c10916d77f8a2606",
+                "url": "https://api.github.com/repos/ahmedesa/laravel-api-tool-kit/zipball/87b58f131d24417e35b14a6a3fd33ad131c81b8b",
+                "reference": "87b58f131d24417e35b14a6a3fd33ad131c81b8b",
                 "shasum": ""
             },
             "require": {
@@ -498,9 +498,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ahmedesa/laravel-api-tool-kit/issues",
-                "source": "https://github.com/ahmedesa/laravel-api-tool-kit/tree/2.1.0"
+                "source": "https://github.com/ahmedesa/laravel-api-tool-kit/tree/2.1.1"
             },
-            "time": "2023-08-27T14:39:38+00:00"
+            "time": "2023-08-28T12:41:26+00:00"
         },
         {
             "name": "fruitcake/php-cors",
