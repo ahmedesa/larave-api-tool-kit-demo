@@ -1,5 +1,10 @@
 ## Demo and Usage Walkthrough
-We've prepared a step-by-step demonstration of how to utilize the features of the ***Laravel API Toolkit*** package. You can follow the commits in the [commit history](https://github.com/ahmedesa/larave-api-tool-kit-demo/commits/master) to grasp the progressive development process. Each commit represents a logical step towards achieving a functional implementation.
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ahmedesa/laravel-api-tool-kit/master/laravel-api-tool-kit.png" style="width:70%;">
+</p>
+
+We've prepared a step-by-step demonstration of how to utilize the features of the ***[Laravel API Toolkit](https://github.com/ahmedesa/laravel-api-tool-kit)*** package. You can follow the commits in the [commit history](https://github.com/ahmedesa/larave-api-tool-kit-demo/commits/master) to grasp the progressive development process. Each commit represents a logical step towards achieving a functional implementation.
+
 
 ## Getting Started
 
